@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/x-icon" href="img/catdabloon.jpg">
+  <title>DreamDabloon</title>
+
+<body>
+
+  <div class="inicio">
+    <div class="img-catdabloon">
+      <img src="img/catdabloon.jpg" alt="">
+    </div>
+
+    <div class="textos">
+      <div class="titulo">
+        Você possui:
+      </div>
+
+      <div class="dabloon-area">
+        <div><b><span id="result">0</span> <span id="texto-dabloon">DABLOONS</span></b></div>
+      </div>
+    </div>
+
+
+    <div class="operando-dabloons">
+
+      <div class="sessão-dabloon-input-buttons">
+        <div class="input-dabloons">
+          <input id="insere_dabloon" type="text" placeholder="Insira a quantia de Dabloons"
+            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
+        </div>
+
+        <div class="botoes-operacoes">
+          <button onclick="depositar()">DEPOSITAR</button>
+          <button onclick="retirar()">RETIRAR</button>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="merchan">
+    <span> Desenvolvido por <b>Eduardo Barbosa</b></span>
+    <span>Acessa meu <a style="text-decoration: none; color: rgb(0, 0, 0); border: 1px solid white; border-radius: 0.5rem; padding: 0.2rem; background-color: rgb(253, 196, 7);" href="https://eduhbarb.github.io/portfolio/" target="_blank" rel="noopener noreferrer"><b>PORTFÓLIO ❤</b></a> </span>
+  </div>
+
+  <div class="area-perigo">
+    <span>Pra caso você queira pausar essa musica infernal:</span>
+    <div class="audio-dabloon">
+      <audio id="dabloon_music" controls autoplay loop>
+        <source src="dabloon_music.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+      </audio>
+    </div>
+    <button onclick="confirmaApagar()">LIMPAR TODAS AS INFORMAÇÕES</button>
+  </div>
+
+
+
+
+
+
+  <script type="text/javascript">
+
+    function confirmaApagar() {
+      let text = "ISSO VAI APAGAR TODOS OS SEUS DABLOONS!\nAperte OK para confirmar, ou Cancele.";
+      if (confirm(text) == true) {
+        limpaTUDO();
+      } else {
+        return
+      }
+      document.getElementById("demo").innerHTML = text;
+    }
+
+    function verifica_Dabloon() {
+      if (localStorage.getItem("qtd_dabloon") === null) {
+        parseInt(localStorage.setItem("qtd_dabloon", 0));
+      }
+      else {
+        return
+      }
+    }
+    verifica_Dabloon();
+    mostra_Dabloon();
+
+    let balance = parseInt(localStorage.getItem("qtd_dabloon"));
+
+    function mostra_Dabloon() {
+      document.getElementById("result").innerHTML = localStorage.getItem("qtd_dabloon");
+    }
+
+
+    function depositar() {
+      let quantidade = document.getElementById('insere_dabloon').value;
+      quantidade = isNaN(quantidade) ? 0 : parseFloat(quantidade);
+      balance += quantidade;
+      localStorage.setItem("qtd_dabloon", balance);
+      mostra_Dabloon();
+    }
+
+    function retirar() {
+      let quantidade = document.getElementById('insere_dabloon').value;
+      quantidade = isNaN(quantidade) ? 0 : parseFloat(quantidade);
+      balance -= quantidade;
+      localStorage.setItem("qtd_dabloon", balance);
+      mostra_Dabloon();
+    }
+
+    function limpaTUDO() {
+      balance = 0
+      localStorage.setItem("qtd_dabloon", balance);
+      verifica_Dabloon();
+      mostra_Dabloon();
+    }
+
+
+    var dabloonmusic = document.getElementById("dabloon_music");
+
+  </script>
+
+
+
+
+
+</body>
+
+</html>
